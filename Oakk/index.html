@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="oak.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Hanunoo&family=Noto+Sans+JP:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">   
+
+  <title>Cadastro de Produtos</title>
+</head>
+<header>
+  <h2 class="font-title font-32 font-md-48 pt-3">
+    <p>
+      Cadastro de Produtos de
+      <span style="text-decoration: underline;">CRESCER</span>
+    </p></h2>
+</header>
+
+<body>
+  <form id="formProduto">
+    <label>Nome do produto:</label>
+    <input type="text" id="nomeProduto" required><br><br>
+
+    <label>Descrição do produto:</label>
+    <textarea id="descricaoProduto" required></textarea><br><br>
+
+    <label>Valor do produto:</label>
+    <input type="text" id="valorProduto" required placeholder="Ex: 99,99"><br><br>
+
+    <label>Disponível para venda:</label>
+    <select id="disponivelProduto" required>
+      <option value="sim">Sim</option>
+      <option value="nao">Não</option>
+    </select><br><br>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <h2>Lista de Produtos</h2>
+  <button id="listaProdutos">Ver lista</button>
+  <table border="1" id="tabelaProdutos">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    const formProduto = document.getElementById('formProduto');
+    const tabelaProdutos = document.querySelector('#tabelaProdutos tbody');
+    const novoCadastro = document.getElementById('novoCadastro');
+
+    let produtos = [];
+
+    formProduto.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nomeProduto').value;
+      const descricao = document.getElementById('descricaoProduto').value;
+      const valorInput = document.getElementById('valorProduto').value;
+
+  
+      if (isNaN(valorInput.replace(',', '.'))) {
+        alert('Insira um número válido para o valor do produto.');
+        return;
+      }
+
+      const valor = parseFloat(valorInput.replace(',', '.')).toFixed(2);
+      const disponivel = document.getElementById('disponivelProduto').value;
+
+      produtos.push({ nome, descricao, valor, disponivel });
+      produtos.sort((a, b) => a.valor - b.valor);
+
+      atualizarTabela();
+      formProduto.reset();
+    });
+
+    novoCadastro.addEventListener('click', function() {
+      formProduto.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function atualizarTabela() {
+      tabelaProdutos.innerHTML = '';
+
+      produtos.forEach(produto => {
+        const novaLinha = tabelaProdutos.insertRow();
+        const celulaNome = novaLinha.insertCell(0);
+        const celulaValor = novaLinha.insertCell(1);
+
+        celulaNome.textContent = produto.nome;
+        celulaValor.textContent = `R$ ${produto.valor.replace('.', ',')}`;
+      });
+    }
+  </script>
+</body>
+</html>
