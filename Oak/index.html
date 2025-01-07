@@ -11,25 +11,26 @@
   <title>Cadastro de Produtos</title>
 </head>
 <header>
-  <h2 class="font-title font-32 font-md-48 pt-3">
+  <h2>
     <p>
-      Cadastro de Produtos de
-      <span style="text-decoration: underline;">CRESCER</span>
+      Cadastrar
+      <span id="oak">PRODUTOS</span>
     </p></h2>
 </header>
 
 <body>
+
   <form id="formProduto">
-    <label>Nome do produto:</label>
-    <input type="text" id="nomeProduto" required><br><br>
+    <label>Nome</label>
+    <input type="text" id="nomeProduto" placeholder="Digite o nome" minlength="3" maxlength="30" required><br><br>
 
-    <label>Descrição do produto:</label>
-    <textarea id="descricaoProduto" required></textarea><br><br>
+    <label>Descrição</label>
+    <textarea id="descricaoProduto" placeholder="Digite uma breve descrição..." minlength="3" maxlength="240" required></textarea><br><br>
 
-    <label>Valor do produto:</label>
+    <label>Valor</label>
     <input type="text" id="valorProduto" required placeholder="Ex: 99,99"><br><br>
 
-    <label>Disponível para venda:</label>
+    <label>Disponível para venda</label>
     <select id="disponivelProduto" required>
       <option value="sim">Sim</option>
       <option value="nao">Não</option>
@@ -38,8 +39,6 @@
     <button type="submit">Cadastrar</button>
   </form>
 
-  <h2>Lista de Produtos</h2>
-  <button id="listaProdutos">Ver lista</button>
   <table border="1" id="tabelaProdutos">
     <thead>
       <tr>
@@ -67,7 +66,7 @@
 
   
       if (isNaN(valorInput.replace(',', '.'))) {
-        alert('Insira um número válido para o valor do produto.');
+        alert('O valor do produto é inválido! Digete um numero válido.');
         return;
       }
 
