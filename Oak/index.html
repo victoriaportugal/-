@@ -15,11 +15,11 @@
     <p>
       Cadastrar
       <span id="oak">PRODUTOS</span>
-    </p></h2>
+    </p>
+  </h2>
 </header>
 
 <body>
-
   <form id="formProduto">
     <label>Nome</label>
     <input type="text" id="nomeProduto" placeholder="Digite o nome" minlength="3" maxlength="30" required><br><br>
@@ -50,52 +50,6 @@
     </tbody>
   </table>
 
-  <script>
-    const formProduto = document.getElementById('formProduto');
-    const tabelaProdutos = document.querySelector('#tabelaProdutos tbody');
-    const novoCadastro = document.getElementById('novoCadastro');
-
-    let produtos = [];
-
-    formProduto.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const nome = document.getElementById('nomeProduto').value;
-      const descricao = document.getElementById('descricaoProduto').value;
-      const valorInput = document.getElementById('valorProduto').value;
-
-  
-      if (isNaN(valorInput.replace(',', '.'))) {
-        alert('O valor do produto é inválido! Digete um numero válido.');
-        return;
-      }
-
-      const valor = parseFloat(valorInput.replace(',', '.')).toFixed(2);
-      const disponivel = document.getElementById('disponivelProduto').value;
-
-      produtos.push({ nome, descricao, valor, disponivel });
-      produtos.sort((a, b) => a.valor - b.valor);
-
-      atualizarTabela();
-      formProduto.reset();
-    });
-
-    novoCadastro.addEventListener('click', function() {
-      formProduto.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    function atualizarTabela() {
-      tabelaProdutos.innerHTML = '';
-
-      produtos.forEach(produto => {
-        const novaLinha = tabelaProdutos.insertRow();
-        const celulaNome = novaLinha.insertCell(0);
-        const celulaValor = novaLinha.insertCell(1);
-
-        celulaNome.textContent = produto.nome;
-        celulaValor.textContent = `R$ ${produto.valor.replace('.', ',')}`;
-      });
-    }
-  </script>
+  <script src="scripts.js"></script>
 </body>
 </html>
